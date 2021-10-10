@@ -8,6 +8,7 @@ export function RestaurantDetails(props) {
         <input
           onChange={props.onChange}
           value={props.name}
+          // value="Vishnu"
           id="name"
           type="text"
         />
@@ -20,6 +21,7 @@ export function RestaurantDetails(props) {
           id="type"
           type="text"
         />
+        {/* <p>Vishnu</p> */}
         <label htmlFor="type">Restaurant Type</label>
       </div>
       <div className="input-field col s12">

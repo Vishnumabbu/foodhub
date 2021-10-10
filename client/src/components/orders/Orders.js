@@ -5,6 +5,9 @@ import { Loader } from "../Loader";
 import { OrderCard } from "./OrderCard";
 import { cloneDeep } from "lodash";
 
+import Paypal from '../Paypal';
+
+
 class Orders extends Component {
   state = { orders: [], loading: false };
 
@@ -12,7 +15,7 @@ class Orders extends Component {
     try {
       this.setState({ loading: true });
       const response = await axios("/api/orders");
-      this.setState({ orders: response.data, loading: false });
+      this.setState({ orders: response.data, loading: false,total:0 });
     } catch (e) {
       console.error(e);
       this.setState({ loading: false });
@@ -29,6 +32,14 @@ class Orders extends Component {
       console.error(e);
     }
   };
+
+  total(){
+    let tot = 0;
+    this.state.orders.map(rest=>{
+      tot += rest.total_amount;
+    })
+    this.setState({...this.state,total:tot});
+  }
 
   render() {
     const { loading, orders } = this.state;
@@ -56,6 +67,22 @@ class Orders extends Component {
               </div>
             )}
           </div>
+          {/* <div>
+            <Paypal style={{width:'100%',margin:'auto'}}/>
+          </div> */}
+           <div class="row">
+            <div class="col s5"></div>
+            <div class="col s4"><button className="btn btn-large waves-effect waves-light hoverable blue accent-3" style={{padding:''}} onClick={()=>{this.total()}}>Total Amount</button>
+            <div style={{margin:'auto',width:"100%"}}>${this.state.total}</div>
+            </div>
+            <div class="col s4"></div>
+          </div>
+      
+          <div class="row">
+            <div class="col s5"></div>
+            <div class="col s4"><Paypal total={this.state.total} style={{width:'100%',margin:'auto'}}/></div>
+            <div class="col s4"></div>
+        </div>
         </div>
       </div>
     );

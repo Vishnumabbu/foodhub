@@ -19,7 +19,7 @@ class NavBar extends Component {
           <nav className="z-depth-0">
             <div className="nav-wrapper">
               <Link to="/" className="brand-logo">
-                <i className="material-icons">code</i>Tomato
+                <i className="material-icons">code</i>FoodHUB
               </Link>
               <div
                 data-target="mobile-demo"

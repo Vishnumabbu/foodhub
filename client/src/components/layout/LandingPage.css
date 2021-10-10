@@ -1,0 +1,15 @@
+.bg{
+    background-image: url('https://source.unsplash.com/o_kNmj-6acM/1920x2100');
+    /* background-size:contain; */
+    /* background-repeat: no-repeat; */
+     /* width: 100px; */
+    height: 700px;
+    /* background-color: aqua; */
+    /* background: url(images/bg.jpg) no-repeat center center fixed;  */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover; 
+   background-size: cover;
+   background-position: center;
+   object-fit: cover;
+}

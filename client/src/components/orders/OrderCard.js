@@ -13,7 +13,7 @@ export function OrderCard(props) {
       <div className="card indigo darken-2">
         <div className="card-content white-text">
         
-            <span className="card-title"><h3>{_restaurant.name}</h3></span>
+            {_restaurant && <span className="card-title"><h3>{_restaurant.name}</h3></span>}
           
           <p className="card-title">{description}</p>
         </div>

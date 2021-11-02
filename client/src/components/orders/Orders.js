@@ -15,7 +15,7 @@ class Orders extends Component {
     try {
       this.setState({ loading: true });
       const response = await axios("/api/orders");
-      this.setState({ orders: response.data, loading: false,total:0 });
+      this.setState({ orders: response.data, loading: false,total:0 },()=>this.total());
     } catch (e) {
       console.error(e);
       this.setState({ loading: false });
@@ -72,8 +72,9 @@ class Orders extends Component {
           </div> */}
            <div class="row">
             <div class="col s5"></div>
-            <div class="col s4"><button className="btn btn-large waves-effect waves-light hoverable blue accent-3" style={{padding:''}} onClick={()=>{this.total()}}>Total Amount</button>
-            <div style={{margin:'auto',width:"100%"}}>${this.state.total}</div>
+            <div class="col s4">
+              {/* <button className="btn btn-large waves-effect waves-light hoverable blue accent-3" style={{padding:''}} onClick={()=>{this.total()}}>Total Amount</button> */}
+            <div style={{margin:'auto',width:"100%"}}>`Total Amount : `${this.state.total}</div>
             </div>
             <div class="col s4"></div>
           </div>

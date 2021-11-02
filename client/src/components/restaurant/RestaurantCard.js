@@ -1,6 +1,7 @@
 import * as PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import { Button } from 'antd';
 
 export function RestaurantCard(props) {
   const { description, name, _id } = props.rest;
@@ -14,6 +15,9 @@ export function RestaurantCard(props) {
         </div>
         <div className="card-action">
           <Link style={{margin:'auto'}} to={`/restaurants/${_id}`}>Order Now</Link>
+          <Link style={{margin:'auto',marginLeft:'40px'}} to={`/dine/${_id}`}>DineIn</Link>
+          {/* <Button type="danger">DineIn</Button> */}
+          {/* <a style={{marginLeft:'20px',width:'125px'}} class="waves-effect waves-light btn">DineIn</a> */}
         </div>
       </div>
     </div>

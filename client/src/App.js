@@ -19,6 +19,8 @@ import Meals from "./components/meals/Meals";
 import Orders from "./components/orders/Orders";
 import CreateRestaurant from "./components/restaurant/CreateRestaurant";
 import DineIn from "./components/DineIn";
+// import { Rate } from "antd";
+import Rate from './components/Rate';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -50,6 +52,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/dine/:id" component={DineIn} />
+            <Route exact path="/rate/:id" component={Rate} />
             <Switch>
               <PrivateRoute exact path="/restaurants" component={Restaurants} />
               <PrivateRoute

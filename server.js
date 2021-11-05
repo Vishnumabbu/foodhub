@@ -39,6 +39,7 @@ app.use("/api/users", users);
 app.use("/api/restaurants", restaurants);
 app.use("/api/meals", meals);
 app.use("/api/orders", orders);
+app.use('/uploads', express.static('./uploads'));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

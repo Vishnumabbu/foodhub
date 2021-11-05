@@ -74,7 +74,7 @@ class Orders extends Component {
             <div class="col s5"></div>
             <div class="col s4">
               {/* <button className="btn btn-large waves-effect waves-light hoverable blue accent-3" style={{padding:''}} onClick={()=>{this.total()}}>Total Amount</button> */}
-            <div style={{margin:'auto',width:"100%"}}>`Total Amount : `${this.state.total}</div>
+            <div style={{margin:'auto',width:"100%"}}>`Total Amount : ${this.state.total}</div>
             </div>
             <div class="col s4"></div>
           </div>

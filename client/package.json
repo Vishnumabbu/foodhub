@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^4.16.13",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
@@ -10,6 +11,7 @@
     "lodash": "^4.17.15",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-dropzone": "^11.4.2",
     "react-paypal-express-checkout": "^1.0.5",
     "react-redux": "^5.1.1",
     "react-router-dom": "^5.3.0",
@@ -23,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },

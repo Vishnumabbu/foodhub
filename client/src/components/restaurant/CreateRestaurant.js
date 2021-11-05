@@ -6,9 +6,14 @@ import { pick } from "lodash";
 import { MealRow } from "../meals/MealRow";
 import { RestaurantDetails } from "./RestaurantDetails";
 import { MealTable } from "../meals/MealTable";
+import { Upload, message, Button } from 'antd';
+// import { UploadOutlined } from '@ant-design/icons';
+import Dropzone from 'react-dropzone';
+import { PlusOutlined ,UploadOutlined } from '@ant-design/icons';
+import { Image } from 'antd';
 
 class CreateRestaurant extends Component {
-  state = { userInfo: {}, _meals: [{ name: "", price: 0, description: "" }] };
+  state = { userInfo: {}, _meals: [{ name: "", price: 0, description: ""}],image:[]};
 
   async componentDidMount() {
     this.setState({ loading: true });
@@ -48,10 +53,11 @@ class CreateRestaurant extends Component {
   onSubmit = async e => {
     e.preventDefault();
     this.setState({ loading: true });
+    console.log(this.state);
     try {
       await axios.post(
         "/api/restaurants",
-        pick(this.state, ["name", "type", "description", "_meals"])
+        pick(this.state, ["name", "type", "description","image","_meals"])
       );
       alert(`Restaurant ${this.state.name} successfully created.`);
       this.props.history.push("/restaurants");
@@ -60,6 +66,47 @@ class CreateRestaurant extends Component {
       alert("Restaurant creation failed");
     }
   };
+
+  onDrop(files){
+
+    const formData = new FormData();
+    // console.log("came")
+    
+    console.log(files[0]);
+
+    const config = {
+        header:{'content-type':'multipart/form-data'}
+    }
+    formData.append("file",files[0]);
+
+    var fileExt = files[0].name.split('.').pop();
+    // console.log(fileExt);
+
+    if(fileExt!='jpg' && fileExt!='png' && fileExt!='jpeg'){
+        return (alert('Only jpg and png files are allowed'));
+    }
+
+    // console.log(formData.file);
+
+    axios.post('/api/restaurants/upload',formData,config).then(res=>{
+        if(res.data.success){
+          alert('Uploaded');
+          // this.setState({...this.state,_meals:[...this.state._meals,image:res.data.image]})
+          console.log(res.data.image);
+          // const { _meals } = this.state;
+
+          // this.setState({
+          //   _meals: [..._meals, { image:[res.data.image] }]
+          // });
+          this.setState({...this.state,image:[res.data.image]});
+            // setImages([...Images, res.data.image]);
+            // props.update([[...Images, res.data.image]]);
+        }
+        else{
+                alert('Failed to save the Image in Server')
+        }
+    })
+}
 
   render() {
     const { name, type, description, userInfo, _meals, loading } = this.state;
@@ -75,6 +122,35 @@ class CreateRestaurant extends Component {
               type={type}
               description={description}
             />
+            <div style={{width:'100%',margin:'auto',textAlign:'center'}}>
+              Upload the Image
+            </div>
+               <Dropzone
+                onDrop={(e)=>this.onDrop(e)}
+                multiple={false}
+                maxSize={800000000}
+            >
+                {({ getRootProps, getInputProps }) => (
+                    <div style={{
+                        width: '300px', height: '240px', border: '1px solid black',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',margin:"auto"
+                    }}
+                        {...getRootProps()}
+                    >
+                        <input {...getInputProps()} />
+                        <PlusOutlined style={{color:'black'}}></PlusOutlined>
+
+                    </div>
+                )}
+            </Dropzone>
+            {
+              this.state.image.length !== 0 && 
+              <div style={{textAlign:'center',marginTop:'20px'}} >
+                <Image src={`http://localhost:5000/${this.state.image}`} />
+              </div>
+               
+            }
+           
             <h3>Meals</h3>
             <MealTable
               meals={_meals}

@@ -5,15 +5,16 @@ import axios from "axios";
 import { Loader } from "../Loader";
 import { MealCard } from "./MealCard";
 import { OrderFooter } from "./OrderFooter";
+import { Rate } from 'antd';
 
 class Meals extends Component {
-  state = { meals: [], loading: false, submitting: false };
+  state = { meals: [], loading: false, submitting: false ,rating:0};
 
   async componentDidMount() {
     try {
       this.setState({ loading: true });
       const response = await axios(`/api/restaurants/${this.restaurantId}`);
-      this.setState({ meals: response.data._meals, loading: false });
+      this.setState({ meals: response.data._meals, rating:response.data.total,loading: false });
     } catch (e) {
       console.error(e);
       this.setState({ loading: false });
@@ -90,6 +91,10 @@ class Meals extends Component {
             <footer className="page-footer">
               <div className="container">
                 <div className="row">
+                  <div style={{fontSize:'30px',textAlign:'center',color:'black'}}>
+                    Rating
+                    <Rate allowHalf style={{width:'100%'}} value={this.state.rating} disabled/>
+                  </div>
                   {(meals || []).map((meal, index) => (
                     <MealCard
                       key={get(meal, "name")}
